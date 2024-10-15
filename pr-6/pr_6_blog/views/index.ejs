@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+        }
+
+        /* Centering the content */
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/user/logIn" class="active">Log In</a>
+        <a href="/user/singUp">Sign Up</a>
+        <a href="/blog/createBlog">Create Blog</a>
+        <a href="/blog/Blogs">Blogs</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Welcome to the Home Page</h1>
+        <p>Choose an option from the navigation bar to continue.</p>
+    </div>
+
+</body>
+</html>

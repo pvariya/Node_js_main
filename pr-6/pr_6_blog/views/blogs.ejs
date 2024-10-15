@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blogs</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      #parent-box {
+        max-width: 1200px; /* Adjust as needed for the desired content width */
+        margin: 0 auto; /* Centers the content horizontally */
+        padding: 20px; /* Adds some breathing room around the content */
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* Allows blogs to be responsive */
+        gap: 20px; /* Adds space between blog entries */
+      }
+
+      /* Blog Entry Styles */
+      .list {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+        width: 200px; /* Fixed width for each blog */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+      }
+
+      .list img {
+        width: 100%; /* Ensures the image fills the width of the blog entry */
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      .list .title {
+        font-size: 1.4em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .list p {
+        margin-bottom: 8px;
+      }
+
+      .likes,
+      .comments {
+        font-size: 0.9em;
+        color: #888;
+      }
+
+      .likes:before {
+        content: url("like.png"); /* Replace with actual path to your like icon */
+        margin-right: 5px;
+      }
+
+      .comments:before {
+        content: url("comment.png"); /* Replace with actual path to your comment icon */
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="parent-box"></div>
+
+    <script>
+      const api = async () => {
+        let req = await fetch("http://localhost:8090/blog/getblog");
+        let res = await req.json();
+        uiMaker(res);
+      };
+
+      const uiMaker = (data) => {
+        const parentBox = document.getElementById("parent-box");
+
+        data.forEach((ele) => {
+          // Create blog container div
+          let list = document.createElement("div");
+          list.className = "list";
+
+          // Create and append image
+          let img = document.createElement("img");
+          img.src = `http://localhost:8090/${ele.image}`;
+          img.alt = "Blog Image";
+          img.className = "img";
+
+          // Create and append title
+          let title = document.createElement("p");
+          title.className = "title";
+          title.innerText = ele.title;
+
+          // Create and append content
+          let content = document.createElement("p");
+          content.innerText = ele.content;
+
+          // Create and append author
+          let author = document.createElement("p");
+          author.innerText = `Author: ${ele.author}`;
+
+          // Create and append category
+          let category = document.createElement("p");
+          category.innerText = `Category: ${ele.category}`;
+          category.className = "category";
+
+          // Create and append like and comment counters
+          let like = document.createElement("p");
+          like.className = "likes";
+          like.innerText = `Likes: ${ele.likedBy.length}`;
+
+          let comments = document.createElement("p");
+          comments.className = "comments";
+          comments.innerText = `Comments: ${ele.comments.length}`;
+
+          // Append all elements to the blog div
+          list.appendChild(img);
+          list.appendChild(title);
+          list.appendChild(content);
+          list.appendChild(author);
+          list.appendChild(category);
+          list.appendChild(like);
+          list.appendChild(comments);
+
+          // Append the list (blog entry) to the parent box
+          parentBox.appendChild(list);
+        });
+      };
+
+      api();
+    </script>
+  </body>
+</html>
+  
